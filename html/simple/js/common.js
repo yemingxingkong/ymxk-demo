@@ -1,7 +1,7 @@
 //公共js文件
 
 //api连接前缀
-//var API_DOMAIN = 'http://39.100.34.75:8085/';
+//var API_DOMAIN = 'http://00.000.00.00:8085/';
 var API_DOMAIN = "http://localhost:8085/";
 
 //为true输出日志
