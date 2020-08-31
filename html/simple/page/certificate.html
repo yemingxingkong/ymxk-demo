@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--用户网页的可视区域-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="keywords" content="钉钉杯，全国大学外语写作大赛">
+  <meta name="description" content="首届‘钉钉’杯，全国大学外语写作大赛">
+  <meta name="author" content="没有锅的麻辣香锅">
+  <link rel="icon" href="../favicon.png">
+  <title>首届‘钉钉’杯，全国大学外语写作大赛</title>
+
+  <link rel="stylesheet" href="../css/lib/normalize.css">
+  <link rel="stylesheet" href="../css/lib/minireset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/styles/certificate.css">
+
+  <link rel="stylesheet" href="../css/lib/vant.min.css" />
+
+  <script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.10.3/dingtalk.open.js"></script>
+  <script src="../js/lib/vue.js"></script>
+  <script src="../js/lib/axios.min.js"></script>
+  <script src="../js/lib/vant.min.js"></script>
+</head>
+
+<body>
+  <main id="app">
+    <template v-if="winning">
+      <div class="cert-item" v-for="item in info">
+        <div class="cert-imgBox">
+          <img :src="item.url" alt="">
+        </div>
+        <div class="flex-default">
+          <a :href="item.url" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">下载证书</div>
+          </a>
+
+          <a v-if="item.type == 1" href="https://ding.fanqier.cn/f/vty7fipn" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type ==2 " href="https://ding.fanqier.cn/f/1pkaql95" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type ==3 " href="https://ding.fanqier.cn/f/yb6fn4fe" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type ==4 " href="https://ding.fanqier.cn/f/zuolhtrq" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type ==5 " href="https://ding.fanqier.cn/f/ypbnv2ob" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type == null " href="https://ding.fanqier.cn/f/ni1nylvs" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="cert-item" v-if="teacher">
+        <div class="cert-imgBox">
+          <img :src="teacher.url" alt="">
+        </div>
+        <div class="flex-default">
+          <a :href="teacher.url" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">下载证书</div>
+          </a>
+          <a v-if="item.type == 'Y' " href="https://ding.fanqier.cn/f/91uh8ext" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+          <a v-if="item.type == 'N' " href="https://ding.fanqier.cn/f/w2z24xof" class="cert-txtBox flex-default justify-content-center">
+            <div class="btn-txt">申领纸质证书</div>
+          </a>
+        </div>
+      </div>
+    </template>
+
+  </main>
+
+  <!-- Optional JavaScript -->
+  <script src="../js/common.js"></script>
+  <script>
+    //1.创建vue实例对象
+    //2.参数
+    var app = new Vue({
+      el: '#app',
+      //所有的数据都放在数据属性里
+      data: {
+        uuid: null,
+        state: null,
+        info: null,
+        teacher:null,
+        winning: false
+
+      },
+      mounted() {
+        //获取url中的targetId参数
+        this.uuid = getUrlParam('uuid')
+        this.state = getUrlParam('state')
+        if (this.state == 1) {
+          this.winning = true
+        } else {
+          this.winning = false
+        }
+        this.getInfo()
+      },
+      methods: {
+        getInfo() {
+          let that = this
+          let imgStr = localStorage.getItem('imglist')
+          let imgData = JSON.parse(imgStr)
+          console.log(imgData)
+          that.info = imgData.studentList
+          that.teacher = imgData.teacher
+          console.log(that.teacher)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

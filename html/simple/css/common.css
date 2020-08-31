@@ -1,0 +1,62 @@
+body{
+  font-size: 16px;
+}
+main{
+  margin: auto;
+  max-width: 800px;
+}
+.color-main {
+  color: rgb(242,132,55);
+}
+
+.colorBg-main {
+  background-color: rgb(242,132,55);
+}
+
+.color-assist {
+  color: #fff;
+}
+
+.colorBg-assist {
+  background-color: #fff;
+}
+
+
+.aspectRatio {
+  position: relative;
+}
+
+.aspectRatio::before {
+  content: "";
+  display: block;
+  width: 1px;
+  margin-left: -1px;
+  padding-top: 100%;
+}
+
+.aspectRatio[data-ratio="16:9"]::before {
+  padding-top: 56.25%;
+}
+
+.aspectRatio[data-ratio="1:0.618"]::before {
+  padding-top: 61.8%;
+}
+.aspectRatio[data-ratio="70.7"]::before {
+  padding-top: 70.7%;
+}
+
+.aspectRatio-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.btn-main{
+  padding: 15px 30px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}

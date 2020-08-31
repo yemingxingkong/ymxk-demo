@@ -1,0 +1,183 @@
+/* 弹性布局 */
+.flex-default{display: flex;align-items: center;}
+.d-flex {display:flex;}
+.d-inline-flex {display:inline-flex;}
+/* 方向 */
+.flex-row {flex-direction:row;}
+.flex-row-reverse {flex-direction:row-reverse;}
+.flex-column {flex-direction:column;}
+.flex-column-reverse {flex-direction:column-reverse;}
+/* 水平 主轴线（main axis）用于修改弹性子元素的排列方式 */
+.justify-content-start {justify-content:flex-start;}
+.justify-content-end {justify-content:flex-end;}
+.justify-content-center {justify-content:center;}
+.justify-content-between {justify-content:space-between;}
+.justify-content-around {justify-content:space-around;}
+/* 垂直 侧轴（纵轴）方向上的对齐 */
+.align-items-start {align-items:flex-start;}
+.align-items-end {align-items:flex-end;}
+.align-items-center {align-items:center;}
+.align-items-baseline {align-items:baseline;}
+.align-items-stretch {align-items:stretch;}
+/* 等宽 */
+.flex-fill {flex:1 1 auto;}
+/* 扩展  用于设置子元素使用剩下的空间 */
+.flex-grow-1 {flex-grow:1;}
+/* 包裹 */
+.flex-wrap {flex-wrap:wrap;}
+.flex-wrap-reverse {flex-wrap:wrap-reverse;}
+.flex-nowrap {flex-wrap:nowrap;}
+/* 修改 flex-wrap 属性的行为 设置行对齐 */
+.align-content-start {align-content:flex-start;}
+.align-content-end {align-content:flex-end;}
+.align-content-center {align-content:center;}
+.align-content-around {align-content:space-around;}
+.align-content-stretch {align-content:stretch;}
+/* 覆盖容器的 align-items 属性 指定子元素对齐 弹性元素自身在侧轴（纵轴）方向上的对齐方式 */
+.align-self-start {align-self:flex-start;}
+.align-self-end {align-self:flex-end;}
+.align-self-center {align-self:center;}
+.align-self-baseline {align-self:baseline;}
+.align-self-stretch {align-self:stretch;}
+/* 文字排版 */
+.f12 {font-size:12px;}
+.f13 {font-size:13px;}
+.f14 {font-size:14px;}
+.f16 {font-size:16px;}
+.f20 {font-size:20px;}
+.fb {font-weight:bold;}
+.fn {font-weight:normal;}
+.t2 {text-indent:2em;}
+.lh150 {line-height:150%;}
+.lh180 {line-height:180%;}
+.lh200 {line-height:200%;}
+.unl {text-decoration:underline;}
+.no_unl {text-decoration:none;}
+/* 定位 */
+.tl {text-align:left;}
+.tc {text-align:center;}
+.tr {text-align:right;}
+.bc {margin-left:auto;margin-right:auto;}
+/* 解决IE6的双边距Bug.fl,.fr {display:inline;}
+*/
+.fl {float:left;}
+.fr {float:right;}
+.cb {clear:both;}
+.cl {clear:left;}
+.cr {clear:right;}
+.clearfix:after {content:'.';display:block;height:0;clear:both;visibility:hidden;}
+.clearfix {display:inline-block;}
+*html .clearfix {height:1%}
+.Clearfix {display:block;}
+.vm {vertical-align:center;}
+.pr {position:relative;}
+.pa {position:absolute;}
+.abs-right {position:absolute;right:0;}
+.zoom {zoom:1}
+.hidden {visibility:hidden;}
+.none {display:none;}
+/* 长度高度 */
+.w10 {width:10px;}
+.w20 {width:20px;}
+.w30 {width:30px;}
+.w40 {width:40px;}
+.w50 {width:50px;}
+.w60 {width:60px;}
+.w70 {width:70px;}
+.w80 {width:80px;}
+.w90 {width:90px;}
+.w100 {width:100px;}
+.w200 {width:200px;}
+.w300 {width:300px;}
+.w400 {width:400px;}
+.w500 {width:500px;}
+.w600 {width:600px;}
+.w700 {width:700px;}
+.w800 {width:800px;}
+.w {width:100%}
+.h10 {height:10px;}
+.h50 {height:50px;}
+.h60 {height:60px;}
+.h80 {height:80px;}
+.h100 {height:100px;}
+.h200 {height:200px;}
+.h {height:100%}
+/* 边距 */.m10 {margin:10px;}
+.m15 {margin:15px;}
+.m30 {margin:30px;}
+.mt5 {margin-top:5px;}
+.mt10 {margin-top:10px;}
+.mt15 {margin-top:15px;}
+.mt20 {margin-top:20px;}
+.mt30 {margin-top:30px;}
+.mt50 {margin-top:50px;}
+.mt100 {margin-top:100px;}
+.mb5 {margin-bottom:5px;}
+.mb10 {margin-bottom:10px;}
+.mb15 {margin-bottom:15px;}
+.mb20 {margin-bottom:20px;}
+.mb30 {margin-bottom:30px;}
+.mb50 {margin-bottom:50px;}
+.mb100 {margin-bottom:100px;}
+.ml5 {margin-left:5px;}
+.ml10 {margin-left:10px;}
+.ml15 {margin-left:15px;}
+.ml20 {margin-left:20px;}
+.ml30 {margin-left:30px;}
+.ml50 {margin-left:50px;}
+.ml100 {margin-left:100px;}
+.mr5 {margin-right:5px;}
+.mr10 {margin-right:10px;}
+.mr15 {margin-right:15px;}
+.mr20 {margin-right:20px;}
+.mr30 {margin-right:30px;}
+.mr50 {margin-right:50px;}
+.mr100 {margin-right:100px;}
+.p10 {padding:10px;}
+.p15 {padding:15px;}
+.p30 {padding:30px;}
+.pt5 {padding-top:5px;}
+.pt10 {padding-top:10px;}
+.pt15 {padding-top:15px;}
+.pt20 {padding-top:20px;}
+.pt30 {padding-top:30px;}
+.pt50 {padding-top:50px;}
+.pt100 {padding-top:100px;}
+.pb5 {padding-bottom:5px;}
+.pb10 {padding-bottom:10px;}
+.pb15 {padding-bottom:15px;}
+.pb20 {padding-bottom:20px;}
+.pb30 {padding-bottom:30px;}
+.pb50 {padding-bottom:50px;}
+.pb100 {padding-bottom:100px;}
+.pl5 {padding-left:5px;}
+.pl10 {padding-left:10px;}
+.pl15 {padding-left:15px;}
+.pl20 {padding-left:20px;}
+.pl30 {padding-left:30px;}
+.pl50 {padding-left:50px;}
+.pl100 {padding-left:100px;}
+.pr5 {padding-right:5px;}
+.pr10 {padding-right:10px;}
+.pr15 {padding-right:15px;}
+.pr20 {padding-right:20px;}
+.pr30 {padding-right:30px;}
+.pr50 {padding-right:50px;}
+.pr100 {padding-right:100px;}
+/* 其他 */
+.relative {position:relative;}
+.absolute {position:absolute;}
+select {padding:2px;}
+input[type="text"],input[type="password"],select {background:#fff;}
+.block {display:block;}
+.inline {display:inline-block;}
+.hidden {display:none;}
+.while {color:#fff;}
+.whileBg {background-color:#fff;}
+.black {color:black;}
+.red {color:red;}
+.orange {color:#f3ac51;}
+.color-333{color:#333;}
+.color-888{color:#888;}
+.bg-while {background-color:#fff;}
+.text-ellipsis{text-overflow:ellipsis;overflow:hidden;}

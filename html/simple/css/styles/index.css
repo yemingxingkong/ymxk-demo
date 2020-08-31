@@ -1,0 +1,32 @@
+.banner img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.main{
+  margin: 0 15px;
+  padding-bottom: 20px;
+}
+.main-txt{
+  padding: 10px 0;
+  border-bottom: 2px solid rgb(242,132,55);
+  text-align: center;
+}
+.main-imgBox{
+  padding-top: 14px;
+}
+.main-examples{
+  left: 12vw;
+  bottom: 12vw;
+  color: rgb(218,84,59)
+}
+.main-txt2{
+  padding: 8px 0;
+  text-align: center;
+  text-decoration:underline;
+}
+.main-comfort{
+  padding: 50px 0;
+  line-height: 40px;
+  text-align: center;
+}

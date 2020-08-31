@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--用户网页的可视区域-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="keywords" content="钉钉杯，全国大学外语写作大赛">
+  <meta name="description" content="首届‘钉钉’杯，全国大学外语写作大赛">
+  <meta name="author" content="没有锅的麻辣香锅">
+  <link rel="icon" href="../favicon.png">
+  <title>首届‘钉钉’杯，全国大学外语写作大赛</title>
+
+  <script>
+    (function (){
+      console.log('---------')
+      // debugger
+    }());
+  </script>
+
+
+
+  <link rel="stylesheet" href="../css/lib/normalize.css">
+  <link rel="stylesheet" href="../css/lib/minireset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/styles/revise.css">
+
+  <link rel="stylesheet" href="../css/lib/vant.min.css" />
+
+  <!-- <script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.10.3/dingtalk.open.js"></script> -->
+  <script src="../js/lib/vue.js"></script>
+  <script src="../js/lib/axios.min.js"></script>
+  <!-- <script src="../js/lib/qs.min.js"></script> -->
+  <script src="../js/lib/vant.min.js"></script>
+</head>
+
+<body>
+  <main id="app">
+    <template v-if="isLoad">
+      <van-skeleton title :row="4" style="margin-top:30px" />
+    </template>
+    <template v-else>
+
+      <template v-if="winning">
+        <div class="revise-margin revise-header color-main">参赛学生信息仅可修改一次,请仔细核实</div>
+        <div class="revise-margin revise-row">
+          <div class="revise-left">
+            <div class="revise-icon icon-name"></div>
+            <div class="revise-lable">姓名:</div>
+          </div>
+          <div class="revise-right">
+            <input v-model="name" type="text" placeholder="请输入姓名" maxlength="6" />
+          </div>
+        </div>
+        <div class="revise-margin revise-row">
+          <div class="revise-left">
+            <div class="revise-icon icon-school"></div>
+            <div class="revise-lable">学校:</div>
+          </div>
+          <div class="revise-right">
+            <input v-model="school" type="text" placeholder="请输入学校" maxlength="18" />
+          </div>
+        </div>
+        <div class="revise-margin revise-row" style="min-height: 65px;padding-bottom: 10px;">
+          <div class="revise-left">
+            <div class="revise-icon icon-teacher"></div>
+            <div class="revise-lable">指导老师:</div>
+          </div>
+          <div class="revise-right relative">
+            <input v-model="teacher" type="text" placeholder="请填写指导老师" maxlength="12" />
+            <div class="revise-teacher-txt absolute">（没有指导老师填'无'）</div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center" style="padding-top: 8px;">
+          <div class="btn-main colorBg-main color-assist" @click="submitStudent">生成获奖证书</div>
+        </div>
+      </template>
+
+      <template v-else>
+        <div>ji</div>
+        <div class="revise-margin revise-header color-main">初赛圈圈主老师信息仅可修改一次,请仔细核实</div>
+        <div class="revise-margin revise-row">
+          <div class="revise-left">
+            <div class="revise-icon icon-teacher"></div>
+            <div class="revise-lable">老师姓名:</div>
+          </div>
+          <div class="revise-right">
+            <input v-model="teacher" type="text" placeholder="请输入姓名" maxlength="20" />
+            <div class="revise-teacher-txt absolute">（最多不超过5位老师用","隔开）</div>
+          </div>
+        </div>
+        <div class="revise-margin revise-row">
+          <div class="revise-left">
+            <div class="revise-icon icon-school"></div>
+            <div class="revise-lable">学校:</div>
+          </div>
+          <div class="revise-right">
+            <input v-model="school" type="text" placeholder="请输入学校" maxlength="18" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center" style="padding-top: 8px;">
+          <div class="btn-main colorBg-main color-assist" @click="submitTeacher">生成指导证书</div>
+        </div>
+      </template>
+    </template>
+
+
+  </main>
+
+  <!-- Optional JavaScript -->
+  <script src="../js/common.js"></script>
+  <script>
+    //1.创建vue实例对象
+    //2.参数
+    var app = new Vue({
+      el: '#app',
+      //所有的数据都放在数据属性里
+      data: {
+        isLoad: false,
+        uuid: null,
+        state: null,
+        info: null,
+        winning: true,
+        flag_update: '',
+        value: '',
+        name: '',
+        school: '',
+        teacher: ''
+      },
+      mounted() {
+        //获取url中的targetId参数
+        this.uuid = getUrlParam('uuid')
+        this.state = getUrlParam('state')
+        if (this.state == 1) {
+          this.winning = true
+        } else {
+          this.winning = false
+        }
+        this.GetInfo(this.uuid)
+      },
+      methods: {
+        GetInfo(targetId) {
+          let that = this
+          console.log(targetId)
+          axios.get(API_DOMAIN + 'writingSelection/getStudentsOrTeachersInfo', {
+              params: {
+                userId: targetId,
+                state: this.state
+              }
+            })
+            .then(function (response) {
+              that.isLoad = false;
+              console.log(response)
+              that.info = response.data.data
+              log(that.info)
+              let res = response.data.data
+              if (that.state == 1) {
+                that.flag_update = res.student.flag_update || '0'
+                if (that.flag_update == 0) {
+                  that.name = res.student.username || ''
+                  that.school = res.student.school || ''
+                  that.teacher = res.student.teachername || ''
+                } else {
+                  that.name = res.student.newUserName || ''
+                  that.school = res.student.newSchool || ''
+                  that.teacher = res.student.newTeacherName || ''
+                }
+                // that.name = '一二三四五一二三四五'
+                // that.school = '一二三四五一二三四五1234567890'
+                // that.teacher = '一二三四五一二三四五12345678'
+
+              } else {
+                that.flag_update = res.teacher.flag_update || '0'
+                that.teacher = res.teacher.teamteachername || ''
+                if (that.flag_update == 0) {
+                  that.school = res.teacher.school || ''
+                } else {
+                  that.school = res.teacher.newSchool || ''
+                }
+
+              }
+            })
+            .catch(function (error) { // 请求失败处理
+              console.log(error);
+            });
+        },
+        submitStudent() {
+          let that = this
+          console.log(that.name)
+          console.log(that.school)
+          console.log(that.teacher)
+          if (that.name.trim() == "") {
+            vant.Toast('请输入姓名');
+            return
+          }
+          if (that.name.trim().length > 6) {
+            vant.Toast('姓名不大于6位');
+            return
+          }
+          if (that.school.trim() == "") {
+            vant.Toast('请输入学校名称');
+            return
+          }
+          if (that.school.trim().length > 18) {
+            vant.Toast('学校名称不大于18位');
+            return
+          }
+          if (that.teacher.trim() == "") {
+            vant.Toast('请输入老师姓名');
+            return
+          }
+          if (that.teacher.trim().length > 12) {
+            vant.Toast('指导老师不大于12位');
+            return
+          }
+          this.PostUpdateStudent()
+        },
+        submitTeacher() {
+          let that = this
+          console.log(that.school)
+          console.log(that.teacher)
+          if (that.teacher.trim() == "") {
+            vant.Toast('请输入老师姓名');
+            return
+          }
+          if (that.teacher.trim().length > 20) {
+            vant.Toast('老师名称不大于20位');
+            return
+          }
+          if (that.school.trim() == "") {
+            vant.Toast('请输入学校名称');
+            return
+          }
+          if (that.school.trim().length > 18) {
+            vant.Toast('学校名称不大于18位');
+            return
+          }
+          this.PostUpdateTeacher()
+        },
+        PostUpdateStudent() {
+          let that = this
+          console.log( that.flag_update)
+          axios.post(API_DOMAIN + 'writingSelection/updateStudentsOrTeachersInfo', {
+              "flag_update": that.flag_update,
+              "userId": that.uuid,
+              "state": that.state,
+              "username": that.name,
+              "school": that.school,
+              "teachername": that.teacher,
+              "teamteachername": ""
+            })
+            .then(function (response) {
+              console.log(response)
+              localStorage.setItem('imglist', JSON.stringify(response.data.data));
+              that.goCertificate()
+            })
+            .catch(function (error) { // 请求失败处理
+              console.log(error);
+            });
+        },
+        PostUpdateTeacher() {
+          let that = this
+          axios.post(API_DOMAIN + 'writingSelection/updateStudentsOrTeachersInfo', {
+              "flag_update": that.flag_update,
+              "userId": that.uuid,
+              "state": that.state,
+              "school": that.school,
+              "teamteachername": that.teacher
+            })
+            .then(function (response) {
+              console.log(response)
+              localStorage.setItem('imglist', JSON.stringify(response.data.data));
+              that.goCertificate()
+            })
+            .catch(function (error) { // 请求失败处理
+              console.log(error);
+            });
+        },
+        goCertificate() {
+          let that = this
+          log('去证书页面')
+          window.location = "certificate.html?uuid=" + that.uuid + "&state=" + that.state+"&showmenu="+false+"&random="+Math.random();
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

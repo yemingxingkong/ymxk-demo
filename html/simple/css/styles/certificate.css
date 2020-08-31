@@ -1,0 +1,15 @@
+.cert-item{
+  border-top: 2px solid rgb(242,132,55);
+  padding: 15px;
+}
+.cert-item:first-child{
+  border: none;
+}
+.cert-txtBox{
+  flex: 0 0 50%;
+}
+.btn-txt{
+  padding: 5px 10px;
+  color: rgb(238, 149, 16);
+  cursor: pointer;
+}

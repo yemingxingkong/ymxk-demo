@@ -1,0 +1,48 @@
+.revise-margin{
+  margin-left: 18px;
+}
+.revise-header{
+  padding: 17px 0;
+  border-bottom: 2px solid #f5f5f5;
+}
+.revise-row{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  min-height: 55px;
+  padding-right: 18px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.revise-left{
+  flex: 0 0 30vw;
+  display: flex;
+  align-items:center;
+}
+.revise-right{
+  flex: 1;
+}
+.revise-right input{
+  width: 100%;
+  line-height: 24px;
+}
+.revise-teacher-txt{
+  font-size: 12px;
+  color: rgb(117,117,117);
+}
+
+.revise-icon{
+  margin-right: 12px;
+  width: 24px;
+  height: 24px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.icon-name{
+  background-image: url('../../images/icon_name.jpg');
+}
+.icon-school{
+  background-image: url('../../images/icon_school.jpg');
+}
+.icon-teacher{
+  background-image: url('../../images/icon_teacher.jpg');
+}

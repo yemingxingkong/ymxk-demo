@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta http-equiv="refresh" content="0.1;url=newUrl"> -->
+    <!--用户网页的可视区域-->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="keywords" content="为搜索引擎定义关键字" />
+    <meta name="description" content="定义描述内容" />
+    <meta name="author" content="没有锅的麻辣香锅" />
+    <!--每30秒钟刷新当前页面-->
+    <!-- <meta http-equiv="refresh" content="30"> -->
+    <link rel="icon" href="favicon.png" />
+    <title>首届‘钉钉’杯，全国大学外语写作大赛</title>
+    <!-- <base href="" target="_blank"> -->
+
+    <script>
+      // 自执行函数 给url加入参数，重定向
+      (function () {
+        let uuid = null;
+        let showmenu = "false";
+        // 获取url中的参数
+        function getUrlParam(name) {
+          var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if (r != null) {
+            return unescape(r[2]);
+          } else {
+            return null;
+          }
+        }
+        uuid = getUrlParam("uuid");
+        showmenu = getUrlParam("showmenu");
+        if (uuid == null) {
+          window.location =
+            window.location.href +
+            "?uuid=0&showmenu=false&random=" +
+            Math.random();
+          return;
+        }
+        if (showmenu != "false") {
+          window.location =
+            window.location.href + "&showmenu=false&random=" + Math.random();
+          return;
+        }
+      })();
+    </script>
+
+    <link rel="stylesheet" href="css/lib/normalize.css" />
+    <link rel="stylesheet" href="css/lib/minireset.css" />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/styles/index.css" />
+    <link rel="stylesheet" href="css/lib/vant.min.css" />
+
+    <script src="https://g.alicdn.com/dingding/dingtalk-jsapi/2.10.3/dingtalk.open.js"></script>
+    <script src="js/lib/vue.js"></script>
+    <script src="js/lib/axios.min.js"></script>
+    <script src="js/lib/vant.min.js"></script>
+  </head>
+
+  <body>
+    <!-- <header id="header" style="border:1px solid green;">
+  </header> -->
+    <!-- main start-->
+    <main id="app">
+      <template v-if="isLoad">
+        <van-skeleton
+          title
+          :row="4"
+          style="margin-top: 30px"
+          v-for="item in 2"
+        />
+      </template>
+      <template v-else>
+        <div class="aspectRatio" data-ratio="16:9">
+          <div class="aspectRatio-content banner">
+            <img src="images/banner.png" alt="" />
+          </div>
+        </div>
+        <div class="main">
+          <template v-if="winning">
+            <div class="main-txt color-main">恭喜您获得“大赛初赛奖项”</div>
+            <div class="main-imgBox relative">
+              <img
+                v-if="isStudent"
+                src="images/certificateStudent.jpg"
+                alt=""
+              />
+              <img v-else src="images/certificateTeacher.jpg" alt="" />
+              <!-- <div class="main-examples absolute">示例证书</div> -->
+            </div>
+            <div class="main-txt2 color-main">致敬为钉钉杯赛事辛苦的您</div>
+            <div class="d-flex justify-content-center">
+              <div class="btn-main colorBg-main color-assist" @click="goRevise">
+                信息核实确认
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="main-txt color-main">很抱歉“您未获奖”</div>
+            <div class="main-comfort">
+              这一次的相遇<br />
+              只是为了更好的前进<br />
+              再接再厉
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <div class="btn-main colorBg-main color-assist" @click="goRevise">
+                信息核实确认
+              </div>
+            </div>
+            <a
+              href="https://ding.fanqier.cn/f/jizvksac"
+              class="d-flex justify-content-center"
+            >
+              <div class="btn-main colorBg-main color-assist">
+                申领徽章参与奖
+              </div>
+            </a>
+            <!-- <a href="https://ding.fanqier.cn/f/ni1nylvs" class="d-flex justify-content-center">
+            <div class="btn-main colorBg-main color-assist">纸质证书参与奖</div>
+          </a> -->
+            <!-- <a v-if="isStudent" href="https://ding.fanqier.cn/f/jizvksac" class="d-flex justify-content-center">
+            <div class="btn-main colorBg-main color-assist">申领参与奖</div>
+          </a>
+          <a v-else href="https://ding.fanqier.cn/f/1slhp9cn" class="d-flex justify-content-center">
+            <div class="btn-main colorBg-main color-assist">申领参与奖</div>
+          </a> -->
+          </template>
+        </div>
+      </template>
+    </main>
+    <!-- main end -->
+
+    <!-- <footer id="footer" style="border:1px solid yellow;">
+  </footer> -->
+
+    <!-- Optional JavaScript -->
+    <script src="js/common.js"></script>
+    <script>
+      //1.创建vue实例对象
+      //2.参数
+      var app = new Vue({
+        el: "#app",
+        //所有的数据都放在数据属性里
+        data: {
+          isLoad: true,
+          loading: true,
+          uuid: null,
+          info: null,
+          winning: true,
+          isStudent: true,
+          value: "",
+          random: 0,
+          url: "",
+          newUrl: "",
+          status: "",
+        },
+        mounted() {
+          //获取url中的targetId参数
+          this.uuid = getUrlParam("uuid");
+          this.GetInfo(this.uuid);
+        },
+        methods: {
+          GetInfo(targetId) {
+            let that = this;
+            console.log(targetId);
+            axios
+              .get(API_DOMAIN + "writingSelection/getawardInfo", {
+                params: {
+                  userId: targetId,
+                },
+              })
+              .then(function (response) {
+                that.isLoad = false;
+                console.log(response);
+                that.info = response.data.data;
+                let res = response.data.data;
+                log(res);
+                if (res.status == "Y") {
+                  that.winning = true;
+                } else {
+                  that.winning = false;
+                }
+                switch (res.state) {
+                  case 1:
+                    that.isStudent = true;
+                    break;
+                  case 2:
+                    that.isStudent = false;
+                    break;
+                  case 3:
+                    console.log("3数据错误");
+                    break;
+                  default:
+                    console.log("未知数据错误");
+                    break;
+                }
+              })
+              .catch(function (error) {
+                // 请求失败处理
+                console.log(error);
+                that.isLoad = false;
+                that.winning = false;
+              });
+          },
+          goRevise() {
+            let that = this;
+            // 是否入围
+            console.log(that.info.status);
+            // 老师or学生
+            window.location =
+              "page/revise.html?uuid=" +
+              that.uuid +
+              "&state=" +
+              that.info.state +
+              "&status=" +
+              that.info.status +
+              "&showmenu=" +
+              false +
+              "&random=" +
+              Math.random();
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
